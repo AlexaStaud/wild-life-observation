@@ -1,0 +1,7 @@
+spring.application.name=wild-life-observation
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/NAME DER DATENBANK
+spring.datasource.username=NUTZERNAME (WAHRSCHEINLICH POSTGRES)
+spring.datasource.password=PASSWORT
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true		
