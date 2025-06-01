@@ -1,4 +1,4 @@
-package Location;
+package com.wildlife.location;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
