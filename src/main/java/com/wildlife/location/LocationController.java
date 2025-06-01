@@ -16,29 +16,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/locations")
 public class LocationController {
 	
+	//einbinden von LocationService
 	@Autowired
 	LocationService locationService;
 	
+	//liste aller Locations
 	@GetMapping
 	public List<Location> alleLocations(){
 		return locationService.getLocationList();
 	}
 	
+	//eine Location ausgeben
 	@GetMapping("/{lNr}")
 	public Location getLocation(@PathVariable("lNr") long lNr) {
 		return locationService.getLocation(lNr);
 	}
 	
+	//eine Location hinzufügen
 	@PostMapping
 	public void addLocation(@RequestBody Location location) {
 		locationService.addLocation(location);
 	}
 	
+	//eine Location bearbeiten
 	@PutMapping("/{lNr}")
 	public void updateLocation(@PathVariable("lNr") long lNr, @RequestBody Location location) {
 		locationService.updateLocation(lNr, location);
 	}
 	
+	
+	//eine Location löschen
 	@DeleteMapping("/{lNr}")
 	public void deleteLocation(@PathVariable("lNr") long lNr) {
 		locationService.deleteLocation(lNr);

@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationService {
 	
+	//eingliedern von LocationRepository
 	@Autowired
 	LocationRepository locationRepository;
 	
+	//Liste aller Locations
 	public List<Location> getLocationList() {
 		
 		ArrayList<Location> locationList = new ArrayList<>();
@@ -23,14 +25,17 @@ public class LocationService {
 		return locationList;
 	}
 	
+	//eine Location zurückgeben
 	public Location getLocation(long lNr) {
 		return locationRepository.findById(lNr).orElse(null);
 	}
 	
+	//eine Location hinzufügen
 	public void addLocation(Location location) {
 		locationRepository.save(location);
 	}
 	
+	//eine Location bearbeiten
 	public void updateLocation(long lNr, Location location) {
 		Location bestehendeLocation = locationRepository.findById(lNr).orElse(null);
 		
@@ -40,6 +45,7 @@ public class LocationService {
 		locationRepository.save(bestehendeLocation);
 	}
 	
+	//eine Location löschen
 	public void deleteLocation(long lNr) {
 		locationRepository.deleteById(lNr);
 	}
