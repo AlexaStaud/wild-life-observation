@@ -1,4 +1,4 @@
-package Genus;
+package com.wildlife.genus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

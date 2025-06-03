@@ -1,4 +1,4 @@
-package Genus;
+package com.wildlife.genus;
 
 import org.springframework.data.repository.CrudRepository;
 
