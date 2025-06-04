@@ -2,9 +2,18 @@ package com.wildlife.genus;
 
 import java.util.List;
 
+
 import com.wildlife.animal.Animal;
 
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+import Animal.Animal;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
@@ -12,11 +21,19 @@ import jakarta.persistence.OneToMany;
 public class Genus {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String designation;
 	private String latinDesignation;
 	
-	@OneToMany(mappedBy = "genus")
+
+	
+	//Beziehungen ein Genus kann mehrere Animals haben
+	@OneToMany(mappedBy = "genus") //Rückbeziehungs aus Animal.java
+	@JsonIgnore //verhindert Endlosschleifen/Rekursion 
+	
+
 	private List<Animal> animals;
 	
 	
@@ -33,6 +50,7 @@ public class Genus {
 	}
 
 	//Getter & Setter
+	
 	public Long getId() {
 		return id;
 	}
@@ -68,6 +86,5 @@ public class Genus {
 	
 	
 	
-
 
 }

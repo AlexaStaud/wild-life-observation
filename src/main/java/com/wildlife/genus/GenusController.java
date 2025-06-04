@@ -2,6 +2,7 @@ package com.wildlife.genus;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+@CrossOrigin(origins = "*") //damit Webclient von localhost zugreifen darf
 @RestController
 @RequestMapping("/genus")
+
 public class GenusController {
 	
 	@Autowired
@@ -26,7 +30,7 @@ public class GenusController {
 	}
 	
 	//GET um Gattung mit bestimmter ID abzurufen
-	@GetMapping("/{ID}")
+	@GetMapping("/{id}")
 	public Genus getGenusById(@PathVariable Long id) {
 		return genusService.getGenus(id);
 		
@@ -38,7 +42,7 @@ public class GenusController {
 		genusService.addGenus(genus);
 	}
 	
-	//PUT /genus/{id} um Gattung bearbeiten
+	//PUT /genus/{id} um Gattung aktualisieren
 	@PutMapping("/{id}")
 	public void updateGenus(@PathVariable Long id, @RequestBody Genus genus) {
 		genusService.updateGenus(id, genus);
