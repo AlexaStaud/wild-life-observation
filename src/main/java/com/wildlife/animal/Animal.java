@@ -14,7 +14,7 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Animal {
 	@Id
-	private Long ID;
+	private Long id;
 	private int age;
 	private double weight;
 	private double size;
@@ -34,9 +34,9 @@ public class Animal {
 	}
 	
 	//Konstruktor mit Parameter
-	public Animal (Long ID, int age, double weight, double size, Genus genus, List<Observation> observations) {
+	public Animal (Long id, int age, double weight, double size, Genus genus, List<Observation> observations) {
 		
-		this.ID = ID;
+		this.id = id;
 		this.age = age;
 		this.weight = weight;
 		this.size = size;
@@ -45,12 +45,12 @@ public class Animal {
 		
 	}
 	//Getter und Setter
-	public Long getID() {
-		return ID;
+	public Long getId() {
+		return id;
 	}
 
-	public void setID(Long ID) {
-		this.ID = ID;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public int getAge() {
