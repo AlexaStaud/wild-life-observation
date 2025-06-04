@@ -2,7 +2,9 @@ package com.wildlife.genus;
 
 import java.util.List;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import Animal.Animal;
 import jakarta.persistence.Entity;
@@ -21,11 +23,13 @@ public class Genus {
 	private String designation;
 	private String latinDesignation;
 	
+
 	
 	//Beziehungen ein Genus kann mehrere Animals haben
 	@OneToMany(mappedBy = "genus") //Rückbeziehungs aus Animal.java
 	@JsonIgnore //verhindert Endlosschleifen/Rekursion 
 	
+
 	private List<Animal> animals;
 	
 	
@@ -35,9 +39,10 @@ public class Genus {
 	}
 	
 	//Konstruktor
-	public Genus(String designation, String latinDesignation) {
+	public Genus(String designation, String latinDesignation, List<Animal> animals) {
 		this.designation = designation;
 		this.latinDesignation = latinDesignation;
+		this.animals = animals;
 	}
 
 	//Getter & Setter
@@ -65,14 +70,17 @@ public class Genus {
 	public void setLatinDesignation(String latinDesignation) {
 		this.latinDesignation = latinDesignation;
 	}
-	
+
 	public List<Animal> getAnimals() {
 		return animals;
 	}
-	
+
 	public void setAnimals(List<Animal> animals) {
 		this.animals = animals;
 	}
+	
+	
+	
 	
 
 }

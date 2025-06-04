@@ -1,7 +1,11 @@
 package Animal;
 
+import com.wildlife.genus.Genus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Animal {
@@ -11,25 +15,31 @@ public class Animal {
 	private double weight;
 	private double size;
 	
+	//Beziehung zu Genus
+	@ManyToOne
+	@JoinColumn
+	private Genus genus;
+	
 	//Standardkonstruktor
 	public Animal() {
 	}
 	
 	//Konstruktor mit Parameter
-	public Animal (Long ID, int age, double weight, double size) {
+	public Animal (Long ID, int age, double weight, double size, Genus genus) {
 		
 		this.ID = ID;
 		this.age = age;
 		this.weight = weight;
 		this.size = size;
+		this.genus = genus;
 		
 	}
 	//Getter und Setter
-	public long getID() {
+	public Long getID() {
 		return ID;
 	}
 
-	public void setID(long ID) {
+	public void setID(Long ID) {
 		this.ID = ID;
 	}
 
@@ -56,4 +66,15 @@ public class Animal {
 	public void setSize(double size) {
 		this.size = size;
 	}
+
+	public Genus getGenus() {
+		return genus;
+	}
+
+	public void setGenus(Genus genus) {
+		this.genus = genus;
+	}
+	
+	
+	
 }
