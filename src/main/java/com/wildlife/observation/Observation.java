@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -21,10 +22,22 @@ public class Observation {
 	
 	//Beziehungen
 	@ManyToOne
+	@JoinColumn
 	private Animal animal;
 	
 	@ManyToOne
+	@JoinColumn
 	private Location location;
+	
+	public Observation() {}
+	
+	public Observation(Long id, String time, String date, Animal animal, Location location) {
+		this.id = id;
+		this.time = time;
+		this.date = date;
+		this.animal = animal;
+		this.location = location;
+	}
 	
 	//Getter und Setter
 	public Animal getAnimal() {
