@@ -3,6 +3,10 @@ package com.wildlife.genus;
 import java.util.List;
 
 
+import com.wildlife.animal.Animal;
+
+
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
