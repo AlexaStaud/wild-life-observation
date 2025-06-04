@@ -39,12 +39,13 @@ public class ObservationService {
 	
 	//Beobachtung aktualisieren
 	public void updateObservation(Long id, Observation updateObservation) {
+		updateObservation.setId(id);
 		observationRepository.save(updateObservation);
 	}
 	
 	
 	//Beobachtung löschen
-	public void delete(Long id) {
+	public void deleteObservation(Long id) {
 		observationRepository.deleteById(id);
 	}
 	
