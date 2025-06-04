@@ -2,6 +2,7 @@ package com.wildlife.location;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wildlife.observation.Observation;
 
 import jakarta.persistence.Entity;
@@ -20,6 +21,7 @@ public class Location {
 	private String description;
 	
 	@OneToMany(mappedBy = "location")
+	@JsonIgnore
 	private List<Observation> observations;
 	
 	

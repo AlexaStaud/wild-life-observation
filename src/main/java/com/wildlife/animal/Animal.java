@@ -2,6 +2,7 @@ package com.wildlife.animal;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wildlife.genus.Genus;
 import com.wildlife.observation.Observation;
 
@@ -26,6 +27,7 @@ public class Animal {
 	
 	//Beziehung zu Observation/Location
 	@OneToMany(mappedBy = "animal")
+	@JsonIgnore
 	private List<Observation> observations;
 	
 	
