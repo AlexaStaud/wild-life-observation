@@ -1,4 +1,4 @@
-package Animal;
+package com.wildlife.animal;
 
 import com.wildlife.genus.Genus;
 

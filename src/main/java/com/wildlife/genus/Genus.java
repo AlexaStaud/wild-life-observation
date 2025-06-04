@@ -2,7 +2,8 @@ package com.wildlife.genus;
 
 import java.util.List;
 
-import Animal.Animal;
+import com.wildlife.animal.Animal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
