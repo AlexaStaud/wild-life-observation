@@ -1,16 +1,9 @@
 package com.wildlife.genus;
 
 import java.util.List;
-
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wildlife.animal.Animal;
 
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-import Animal.Animal;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

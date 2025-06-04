@@ -1,7 +1,7 @@
 package com.wildlife.observation;
 
+import com.wildlife.animal.Animal;
 import com.wildlife.location.Location;
-import Animal.Animal;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
