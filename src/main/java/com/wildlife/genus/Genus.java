@@ -28,8 +28,6 @@ public class Genus {
 	//Beziehungen ein Genus kann mehrere Animals haben
 	@OneToMany(mappedBy = "genus") //Rückbeziehungs aus Animal.java
 	@JsonIgnore //verhindert Endlosschleifen/Rekursion 
-	
-
 	private List<Animal> animals;
 	
 	
