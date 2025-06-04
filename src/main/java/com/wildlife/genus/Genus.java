@@ -1,12 +1,9 @@
 package com.wildlife.genus;
 
 import java.util.List;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wildlife.animal.Animal;
 
-
-import Animal.Animal;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,8 +25,6 @@ public class Genus {
 	//Beziehungen ein Genus kann mehrere Animals haben
 	@OneToMany(mappedBy = "genus") //Rückbeziehungs aus Animal.java
 	@JsonIgnore //verhindert Endlosschleifen/Rekursion 
-	
-
 	private List<Animal> animals;
 	
 	

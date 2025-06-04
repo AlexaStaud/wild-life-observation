@@ -1,11 +1,15 @@
-package Animal;
+package com.wildlife.animal;
+
+import java.util.List;
 
 import com.wildlife.genus.Genus;
+import com.wildlife.observation.Observation;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Animal {
@@ -20,18 +24,24 @@ public class Animal {
 	@JoinColumn
 	private Genus genus;
 	
+	//Beziehung zu Observation/Location
+	@OneToMany(mappedBy = "animal")
+	private List<Observation> observations;
+	
+	
 	//Standardkonstruktor
 	public Animal() {
 	}
 	
 	//Konstruktor mit Parameter
-	public Animal (Long ID, int age, double weight, double size, Genus genus) {
+	public Animal (Long ID, int age, double weight, double size, Genus genus, List<Observation> observations) {
 		
 		this.ID = ID;
 		this.age = age;
 		this.weight = weight;
 		this.size = size;
 		this.genus = genus;
+		this.observations = observations;
 		
 	}
 	//Getter und Setter
@@ -73,6 +83,14 @@ public class Animal {
 
 	public void setGenus(Genus genus) {
 		this.genus = genus;
+	}
+
+	public List<Observation> getObservations() {
+		return observations;
+	}
+
+	public void setObservations(List<Observation> observations) {
+		this.observations = observations;
 	}
 	
 	
