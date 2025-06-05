@@ -23,7 +23,8 @@ function postObservation(event) {
 		'weight': $('input[name=weight]').val(),
 		'size': $('input[name=size]').val(),
 		'age': $('input[name=age]').val(),
-		'genusId' : $('#locationSelect').val(),
+		'genusId' : $('#genusSelect').val(),
+		'locationId': $('#locationSelect').val(),
 	};
 	// processtheform
 	$.ajax({
