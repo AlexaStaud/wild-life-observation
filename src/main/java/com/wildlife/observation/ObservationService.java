@@ -53,7 +53,7 @@ public class ObservationService {
 	//Neue Beobachtung speichern
 	public void addObservation(Observation observation) {
 		
-		Long genusId = observation.getAnimal().getId();
+		Long genusId = observation.getAnimal().getGenus().getId();
 		Genus genus = genusRepository.findById(genusId).orElse(null);
 		
 		observation.getAnimal().setGenus(genus);
