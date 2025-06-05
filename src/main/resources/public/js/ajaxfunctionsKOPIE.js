@@ -1,14 +1,14 @@
 //On Page load-registerlistenersandloadexistingvideosin datatable
 $(document).ready(function() {
-	loadDataTable();
+	loadObservationTable();
 	//processtheform newVideo
-	$("#newObservation").submit(function(event) {
+	$("#observationForm").submit(function(event) {
 		postObservation(event);
 	});
 	
 	//Beobachtungen laden, wenn der Button geklickt wird
 	$("#loadObservations").click(function() {
-		loadObservations();
+		loadObservationTable();
 	});
 });
 
@@ -29,7 +29,7 @@ function postObservation(event) {
 		url: '/observation', // urlwherewewanttoPOST
 		data: JSON.stringify(formData), // datawewanttoPOST
 		success: function(data, textStatus, jQxhr) {
-			loadObservations();
+			loadObservationTable();
 		},
 		error: function(jqXhr, textStatus, errorThrown) {
 			console.log(errorThrown);
@@ -42,11 +42,11 @@ function postObservation(event) {
 
 
 //rechte Seite Beobachtungstabelle (Danny) 
-function loadObservations() {
+function loadObservationTable() {
 	var table = $('#observationTable').DataTable({
 		destroy: true,
 		"ajax": {
-			"url": "/observations", //URL
+			"url": "/observation", //URL
 			"dataSrc": ""// Causeofflat JsonObjects
 		},
 		"columns": [
