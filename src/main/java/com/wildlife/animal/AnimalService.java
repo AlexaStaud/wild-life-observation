@@ -38,7 +38,7 @@ public class AnimalService {
 		bestehendeAnimal.setAge(animal.getAge());
 		bestehendeAnimal.setWeight(animal.getWeight());
 		bestehendeAnimal.setSize(animal.getSize());
-		
+		bestehendeAnimal.setGender(animal.getGender());
 		animalRepository.save(bestehendeAnimal);	
 	}
 	
