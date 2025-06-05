@@ -26,7 +26,7 @@ public class LocationService {
 	}
 	
 	//eine Location zurückgeben
-	public Location getLocation(long lNr) {
+	public Location getLocation(Long lNr) {
 		return locationRepository.findById(lNr).orElse(null);
 	}
 	
@@ -36,7 +36,7 @@ public class LocationService {
 	}
 	
 	//eine Location bearbeiten
-	public void updateLocation(long lNr, Location location) {
+	public void updateLocation(Long lNr, Location location) {
 		Location bestehendeLocation = locationRepository.findById(lNr).orElse(null);
 		
 		bestehendeLocation.setCity(location.getCity());
@@ -46,7 +46,7 @@ public class LocationService {
 	}
 	
 	//eine Location löschen
-	public void deleteLocation(long lNr) {
+	public void deleteLocation(Long lNr) {
 		locationRepository.deleteById(lNr);
 	}
 	

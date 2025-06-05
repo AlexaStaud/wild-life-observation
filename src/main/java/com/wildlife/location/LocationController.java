@@ -30,7 +30,7 @@ public class LocationController {
 	
 	//eine Location ausgeben
 	@GetMapping("/{lNr}")
-	public Location getLocation(@PathVariable("lNr") long lNr) {
+	public Location getLocation(@PathVariable("lNr") Long lNr) {
 		return locationService.getLocation(lNr);
 	}
 	
@@ -42,14 +42,14 @@ public class LocationController {
 	
 	//eine Location bearbeiten
 	@PutMapping("/{lNr}")
-	public void updateLocation(@PathVariable("lNr") long lNr, @RequestBody Location location) {
+	public void updateLocation(@PathVariable("lNr") Long lNr, @RequestBody Location location) {
 		locationService.updateLocation(lNr, location);
 	}
 	
 	
 	//eine Location löschen
 	@DeleteMapping("/{lNr}")
-	public void deleteLocation(@PathVariable("lNr") long lNr) {
+	public void deleteLocation(@PathVariable("lNr") Long lNr) {
 		locationService.deleteLocation(lNr);
 	}
 	
