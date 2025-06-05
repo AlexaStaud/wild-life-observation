@@ -2,20 +2,23 @@
 $(document).ready(function() {
 	loadDataTable();
 	//processtheform newVideo
-	$("#newVideo").submit(function(event) {
-		postVideo(event);
+	$("#newObservation").submit(function(event) {
+		postObservation(event);
 	});
+	
 	//Beobachtungen laden, wenn der Button geklickt wird
 	$("#loadObservations").click(function() {
 		loadObservations();
 	});
 });
 
-function postVideo(event) {
+
+//linke Seite Eingabemaske (Yaren)
+function postObservation(event) {
 	// get the form data
 	var formData = {
-		'title': $('input[name=title]').val(),
-		'description': $('textarea[name=description]').val(),
+		'time': $('input[name=title]').val(),
+		'date': $('textarea[name=description]').val(),
 		'ageRating': $('input[name=agerating]').val(),
 		'genre': $('input[name=genre]').val()
 	};
@@ -23,10 +26,10 @@ function postVideo(event) {
 	$.ajax({
 		type: 'POST', // definethetype ofHTTP verbwewanttouse(POST forourform)
 		contentType: 'application/json',
-		url: '/videos', // urlwherewewanttoPOST
+		url: '/observation', // urlwherewewanttoPOST
 		data: JSON.stringify(formData), // datawewanttoPOST
 		success: function(data, textStatus, jQxhr) {
-			loadDataTable();
+			loadObservations();
 		},
 		error: function(jqXhr, textStatus, errorThrown) {
 			console.log(errorThrown);
@@ -36,7 +39,9 @@ function postVideo(event) {
 	event.preventDefault();
 }
 
-//rechte Seite Beobachtungstabelle (Danny)
+
+
+//rechte Seite Beobachtungstabelle (Danny) 
 function loadObservations() {
 	var table = $('#observationTable').DataTable({
 		destroy: true,
@@ -46,11 +51,11 @@ function loadObservations() {
 		},
 		"columns": [
 			{ "data": "id" },
-			{ "data": "animal.genus.designation" },
-			{ "data": "location.shorttitle" },
-			{ "data": "animal.estimatedSize" },
-			{ "data": "animal.estimatedWeight" },
-			{ "data": "animal.estimatedAge" },
+			{ "data": "animal.genus.designation" },  
+			{ "data": "location" },
+			{ "data": "animal.size" },
+			{ "data": "animal.weight" },
+			{ "data": "animal.age" },
 			{ "data": "animal.gender" },						
 			{ "data": "date" },
 			{ "data": "time" }
