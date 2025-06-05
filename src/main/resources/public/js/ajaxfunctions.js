@@ -22,25 +22,26 @@ $(document).ready(function() {
 function postObservation(event) {
 	event.preventDefault(); // verhindert normales Abschicken, man bleibt auf der Seite
 
-
+	//ACHTUNG: Änderung Alexa
 	const formData = {
-	  time: $('input[name=time]').val(),
-	  date: $('input[name=date]').val(),
-	  animal: {
-	    gender: $('select[name=gender]').val(),
-	    weight: $('input[name=weight]').val(),
-	    size: $('input[name=size]').val(),
-	    age: $('input[name=age]').val(),
-	    genus: {
-	      id: $('#genusSelect').val()
-	    }
-	  },
-	  location: {
-	    id: $('#locationSelect').val()
-	  }
+		'time': $('input[name=time]').val(),
+		'date': $('input[name=date]').val(),
+		'animal':{
+			'gender': $('select[name=gender]').val(),
+			'weight': $('input[name=weight]').val(),
+			'size': $('input[name=size]').val(),
+			'age': $('input[name=age]').val(),
+			'genus': {
+				'id': $('#genusSelect').val()
+			}
+		},
+		'location': {
+			'lNr': $('#locationSelect').val()
+		}
 	};
-
 	// processtheform
+	
+	
 	$.ajax({
 		type: 'POST', 
 		contentType: 'application/json',
@@ -58,7 +59,9 @@ function postObservation(event) {
 
 
 
-//rechte Seite Beobachtungstabelle (Danny) 
+//rechte Seite Beobachtungstabelle (Danny)
+
+//ACHTUNG: Änderung Alexa 
 function loadObservationTable() {
 	var table = $('#observationTable').DataTable({
 		destroy: true,
@@ -120,7 +123,7 @@ function loadLocationOptions() {
 		const select = $('#locationSelect');
 		select.empty().append('<option value="">--Bitte auswählen--</option>');
 		data.forEach(function(l) {
-			select.append('<option value="' + l.id + '">' + l.city + '</option>');
+			select.append('<option value="' + l.lNr + '">' + l.city + '</option>'); //ACHTUNG: Änderung Alexa (id zu lNR)
 		});
 	});
 }
