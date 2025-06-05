@@ -1,32 +1,37 @@
 //On Page load-registerlistenersandloadexistingvideosin datatable
 $(document).ready(function() {
-	loadDataTable();
+	loadObservationTable();
 	//processtheform newVideo
-	$("#newVideo").submit(function(event) {
-		postVideo(event);
+	$("#observationForm").submit(function(event) {
+		postObservation(event);
 	});
-	//Load Datatable
-	$("#loadtable").click(function() {
-		loadDataTable();
+	
+	//Beobachtungen laden, wenn der Button geklickt wird
+	$("#loadObservations").click(function() {
+		loadObservationTable();
 	});
 });
 
-function postVideo(event) {
+
+//linke Seite Eingabemaske (Yaren)
+function postObservation(event) {
 	// get the form data
 	var formData = {
-		'title': $('input[name=title]').val(),
-		'description': $('textarea[name=description]').val(),
-		'ageRating': $('input[name=agerating]').val(),
-		'genre': $('input[name=genre]').val()
+		'time': $('input[name=time]').val(),
+		'date': $('input[name=date]').val(),
+		'gender': $('select[name=gender]').val(),
+		'weight': $('input[name=weight]').val(),
+		'size': $('input[name=size]').val(),
+		'age': $('select[name=age]').val(),
 	};
 	// processtheform
 	$.ajax({
 		type: 'POST', // definethetype ofHTTP verbwewanttouse(POST forourform)
 		contentType: 'application/json',
-		url: '/videos', // urlwherewewanttoPOST
+		url: '/observation', // urlwherewewanttoPOST
 		data: JSON.stringify(formData), // datawewanttoPOST
 		success: function(data, textStatus, jQxhr) {
-			loadDataTable();
+			loadObservationTable();
 		},
 		error: function(jqXhr, textStatus, errorThrown) {
 			console.log(errorThrown);
@@ -36,18 +41,26 @@ function postVideo(event) {
 	event.preventDefault();
 }
 
-function loadDataTable() {
-	var table = $('#videotable').DataTable({
+
+
+//rechte Seite Beobachtungstabelle (Danny) 
+function loadObservationTable() {
+	var table = $('#observationTable').DataTable({
 		destroy: true,
 		"ajax": {
-			"url": "/videos", //URL
+			"url": "/observation", //URL
 			"dataSrc": ""// Causeofflat JsonObjects
 		},
 		"columns": [
-			{ "data": "title" },
-			{ "data": "description" },
-			{ "data": "ageRating" },
-			{ "data": "genre" }
+			{ "data": "id" },
+			{ "data": "animal.genus.designation" },  
+			{ "data": "location" },
+			{ "data": "animal.size" },
+			{ "data": "animal.weight" },
+			{ "data": "animal.age" },
+			{ "data": "animal.gender" },						
+			{ "data": "date" },
+			{ "data": "time" }
 		]
 	});
 }
