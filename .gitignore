@@ -36,6 +36,10 @@ out/
 ### VS Code ###
 .vscode/
 
+HEAD
 # macOS Systemdateien
 .DS_Store
 
+###
+.DS_Store
+9bb9f95fc0ffaee4fb5cdd4d49f61284f95d1ae4

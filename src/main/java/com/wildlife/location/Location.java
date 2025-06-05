@@ -15,11 +15,12 @@ import jakarta.persistence.OneToMany;
 public class Location {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Die id (lNr) wird automatisch erzeugt
 	private Long lNr;
 	private String city;
 	private String description;
 	
+	//Beziehung zu Observation (bzw. Animal)
 	@OneToMany(mappedBy = "location")
 	@JsonIgnore
 	private List<Observation> observations;
@@ -67,8 +68,6 @@ public class Location {
 
 	public void setObservations(List<Observation> observations) {
 		this.observations = observations;
-	}
-	
-	
+	}	
 
 }

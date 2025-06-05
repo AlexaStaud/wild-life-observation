@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GenusService {
 	
+	
+	//Eingliedern von GenusRepository
 	@Autowired
 	GenusRepository genusRepository;
 
@@ -35,7 +37,7 @@ public class GenusService {
 	
 	//Gattung aktualisieren
     public void updateGenus(Long id, Genus updatedGenus) {
-        //prüfen, ob es die ID gibt
+        //setzt id
         updatedGenus.setId(id);
         genusRepository.save(updatedGenus);
     }
