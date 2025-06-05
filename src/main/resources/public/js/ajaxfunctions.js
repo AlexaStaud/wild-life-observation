@@ -24,15 +24,22 @@ function postObservation(event) {
 
 
 	const formData = {
-		'time': $('input[name=time]').val(),
-		'date': $('input[name=date]').val(),
-		'gender': $('select[name=gender]').val(),
-		'weight': $('input[name=weight]').val(),
-		'size': $('input[name=size]').val(),
-		'age': $('input[name=age]').val(),
-		'genusId' : $('#genusSelect').val(),
-		'locationId': $('#locationSelect').val(),
+	  time: $('input[name=time]').val(),
+	  date: $('input[name=date]').val(),
+	  animal: {
+	    gender: $('select[name=gender]').val(),
+	    weight: $('input[name=weight]').val(),
+	    size: $('input[name=size]').val(),
+	    age: $('input[name=age]').val(),
+	    genus: {
+	      id: $('#genusSelect').val()
+	    }
+	  },
+	  location: {
+	    id: $('#locationSelect').val()
+	  }
 	};
+
 	// processtheform
 	$.ajax({
 		type: 'POST', 
@@ -62,8 +69,8 @@ function loadObservationTable() {
 		},
 		"columns": [
 			{ "data": "id" },
-			{ "data": "genus" },  
-			{ "data": "location" },
+			{ "data": "animal.genus.designation" },  
+			{ "data": "location.city" },
 			{ "data": "animal.size" },
 			{ "data": "animal.weight" },
 			{ "data": "animal.age" },
