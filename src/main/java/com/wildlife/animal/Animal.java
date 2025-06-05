@@ -7,6 +7,8 @@ import com.wildlife.genus.Genus;
 import com.wildlife.observation.Observation;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -14,7 +16,9 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Animal {
-	@Id
+	
+	@Id 	
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Die id wird automatisch erzeugt
 	private Long id;
 	private int age;
 	private double weight;
@@ -22,12 +26,12 @@ public class Animal {
 	
 	//Beziehung zu Genus
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn //erzeugt Fremdschlüssel
 	private Genus genus;
 	
 	//Beziehung zu Observation/Location
 	@OneToMany(mappedBy = "animal")
-	@JsonIgnore
+	@JsonIgnore //verhindert Endlos-Rekursion
 	private List<Observation> observations;
 	
 	
@@ -46,6 +50,8 @@ public class Animal {
 		this.observations = observations;
 		
 	}
+	
+	
 	//Getter und Setter
 	public Long getId() {
 		return id;
@@ -94,7 +100,5 @@ public class Animal {
 	public void setObservations(List<Observation> observations) {
 		this.observations = observations;
 	}
-	
-	
-	
+		
 }
