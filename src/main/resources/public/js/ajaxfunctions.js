@@ -1,26 +1,26 @@
 $(document).ready(function() {
-	// Tabelle laden
+	// Tabelle mit Beobachtungen laden
 	loadObservationTable();
 	
-	// Gattung und Ort laden
+	// Gattung und Ort für Dropdown laden
 		loadGenusOptions();
 		loadLocationOptions();
 	
-	// Formular abschicken
+	// Neue Beobachtung senden
 	$("#observationForm").submit(function(event) {
 		postObservation(event);
 	});
 	
-	// Tabelle manuell laden wenn geklickt
+	// Tabelle manuell laden per Button
 	$("#loadObservations").click(function() {
 		loadObservationTable();
 	});
 });
 
-// Beobachtungen speichern (linke Seite)
-//linke Seite Eingabemaske (Yaren)
+// Beobachtungen speichern und absenden (linke Seite)
+//Eingabemaske (Yaren)
 function postObservation(event) {
-	event.preventDefault(); // Standard-Submit verhindern
+	event.preventDefault(); // verhindert normales Abschicken, man bleibt auf der Seite
 
 
 	const formData = {
@@ -35,7 +35,7 @@ function postObservation(event) {
 	};
 	// processtheform
 	$.ajax({
-		type: 'POST', // definethetype ofHTTP verbwewanttouse(POST forourform)
+		type: 'POST', 
 		contentType: 'application/json',
 		url: '/observation', // urlwherewewanttoPOST
 		data: JSON.stringify(formData), // datawewanttoPOST
@@ -47,7 +47,6 @@ function postObservation(event) {
 		}
 	});
 	// stoptheform fromsubmittingthenormal wayandrefreshingthepage
-	event.preventDefault();
 }
 
 
