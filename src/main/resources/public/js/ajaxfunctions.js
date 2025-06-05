@@ -48,6 +48,7 @@ function postObservation(event) {
 function loadObservationTable() {
 	var table = $('#observationTable').DataTable({
 		destroy: true,
+		scrollX: true,
 		"ajax": {
 			"url": "/observation", //URL
 			"dataSrc": ""// Causeofflat JsonObjects
