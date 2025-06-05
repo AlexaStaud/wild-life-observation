@@ -23,6 +23,7 @@ public class Animal {
 	private int age;
 	private double weight;
 	private double size;
+	private String gender;
 	
 	//Beziehung zu Genus
 	@ManyToOne
@@ -40,12 +41,13 @@ public class Animal {
 	}
 	
 	//Konstruktor mit Parameter
-	public Animal (Long id, int age, double weight, double size, Genus genus, List<Observation> observations) {
+	public Animal (Long id, int age, double weight, double size, String gender, Genus genus, List<Observation> observations) {
 		
 		this.id = id;
 		this.age = age;
 		this.weight = weight;
 		this.size = size;
+		this.gender = gender;
 		this.genus = genus;
 		this.observations = observations;
 		
@@ -83,6 +85,15 @@ public class Animal {
 
 	public void setSize(double size) {
 		this.size = size;
+	}
+	
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public Genus getGenus() {

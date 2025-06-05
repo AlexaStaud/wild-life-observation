@@ -7,12 +7,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wildlife.animal.Animal;
+import com.wildlife.animal.AnimalRepository;
+import com.wildlife.genus.Genus;
+import com.wildlife.genus.GenusRepository;
+import com.wildlife.location.Location;
+import com.wildlife.location.LocationRepository;
+
 @Service
 public class ObservationService {
 	
 	//Eingliedern des ObservationRepository
 	@Autowired
 	ObservationRepository observationRepository;
+	
+	@Autowired
+	GenusRepository genusRepository;
+	
+	@Autowired
+	AnimalRepository animalRepository;
+	
+	@Autowired
+	LocationRepository locationRepository;
 	
 	
 	//Alle Beobachtungen aufrufen
@@ -36,6 +52,19 @@ public class ObservationService {
 	
 	//Neue Beobachtung speichern
 	public void addObservation(Observation observation) {
+		
+		Long genusId = observation.getAnimal().getId();
+		Genus genus = genusRepository.findById(genusId).orElse(null);
+		
+		observation.getAnimal().setGenus(genus);
+		
+		Animal savedAnimal = animalRepository.save(observation.getAnimal());
+		observation.setAnimal(savedAnimal);
+		
+		Long lNr = observation.getLocation().getlNr();
+		Location location = locationRepository.findById(lNr).orElse(null);
+		observation.setLocation(location);
+		
 		observationRepository.save(observation); //speichert Beobachtung
 	}
 	
