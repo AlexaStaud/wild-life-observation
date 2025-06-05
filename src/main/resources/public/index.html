@@ -1,49 +1,72 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Video Archiv</title>
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-		<link rel="stylesheet" href="css/styles.css">
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" src="js/ajaxfunctions.js"></script>
-	</head>
-	<body>
-		<div class="centerdiv">
-			<header><h1>Video Archiv</h1></header>
-			<section class="left">
-				<h1>Neues Video anlegen</h1>
-				<form id="newVideo">
-					<label>Titel:</label>
-					<input type="text" name="title" required="required" >
-					<label>Beschreibung:</label>
-					<textarea name="description" required="required" rows="10"></textarea>
-					<label>Altersbeschränkung:</label>
-					<input type="text" name="agerating" required="required">
-					<label>Genre:</label>
-					<input type="text" name="genre" required="required">
-					<br>
-					<input type="submit" id="newVideoButton">
-				</form>
-			</section>
-			<section class="right">
-				<h1>Meine Videos</h1>
-				<p>
-				<button id="loadtable">Laden</button>
-				<table id="videotable" class="display" cellspacing="0" width="100%">
-					<thead>
-						<tr>
-							<th>title</th>
-							<th>description</th>
-							<th>agerating</th>
-							<th>genre</th>
-						</tr>
-					</thead>
-				</table>
-				</p>
-			</section>
-			<footer>Copyright (c) - 2017 by Me!</footer>
-		</div>
-	</body>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Wild-life-observation</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="js/ajaxfunctions.js" defer></script>
+</head>
+<body>
+    <div class="centerdiv">
+        <header><h1>Beobachtungen</h1></header>
+        <section class="left">
+            <h1>Neue Beobachtung anlegen</h1>
+            <form id="observationForm">
+
+                <!-- Genus -->
+                <label>Gattung auswählen:</label>
+                <select name="genusId" id="genusSelect" required>
+                    <option value="">--Bitte auswählen--</option>
+                </select>
+                <button type="button" onclick="toggleGenusInput()">+ Neue Gattung anlegen</button>
+                <div id="newGenusInput" style="display: none; margin-top: 10px;">
+                    <label>Neue Gattung (Name):</label>
+                    <input type="text" id="newGenusName">
+                    <button type="button" onclick="saveNewGenus()">Speichern</button>
+                </div>
+
+                <!-- Location -->
+                <label>Ort auswählen:</label>
+                <select name="locationId" id="locationSelect" required>
+                    <option value="">--Bitte auswählen--</option>
+                </select>
+                <button type="button" onclick="toggleLocationInput()">+ Neuer Ort</button>
+                <div id="newLocationInput" style="display: none;">
+                    <label>Neuer Ort (Stadtname):</label>
+                    <input type="text" id="newLocationName">
+                    <button type="button" onclick="saveNewLocation()">Speichern</button>
+                </div>
+
+                <!-- Beobachtungsdaten -->
+                <label>Datum:</label>
+                <input type="date" name="date" required>
+
+                <label>Uhrzeit:</label>
+                <input type="time" name="time" required>
+
+                <label>Geschlecht:</label>
+                <select name="gender" required>
+                    <option value="">-- Bitte auswählen --</option>
+                    <option value="MALE">Männlich</option>
+                    <option value="FEMALE">Weiblich</option>
+                </select>
+
+                <label>Geschätztes Gewicht (kg):</label>
+                <input type="number" name="weight" step="0.1" required>
+
+                <label>Geschätzte Größe (cm):</label>
+                <input type="number" name="size" step="1" required>
+
+                <label>Geschätztes Alter (Jahre):</label>
+                <input type="number" name="age" step="1" required>
+
+                <br><br>
+                <input type="submit" value="Beobachtung speichern">
+            </form>
+        </section>
+    </div>
+</body>
 </html>
