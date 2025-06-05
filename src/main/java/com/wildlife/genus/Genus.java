@@ -14,10 +14,10 @@ import jakarta.persistence.OneToMany;
 public class Genus {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Automatische Generierung der ID 
 	private Long id;
 	
-	private String designation;
+	private String designation; 
 	private String latinDesignation;
 	
 
@@ -33,14 +33,14 @@ public class Genus {
 		
 	}
 	
-	//Konstruktor
+	//Konstruktor zum Erstellen eines Genus mit Tieren
 	public Genus(String designation, String latinDesignation, List<Animal> animals) {
 		this.designation = designation;
 		this.latinDesignation = latinDesignation;
 		this.animals = animals;
 	}
 
-	//Getter & Setter
+	//Getter & Setter automatisch erzeugt
 	
 	public Long getId() {
 		return id;

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnimalService {
 
-	
-	@Autowired
+	@Autowired //Einbinden von AnimalRepository
 	AnimalRepository animalRepository;
 	
+	//Liste aller Animals ausgeben
 	public List<Animal> getAnimalList() {
 		
 		ArrayList<Animal> animalList = new ArrayList<>();
@@ -39,14 +39,12 @@ public class AnimalService {
 		bestehendeAnimal.setWeight(animal.getWeight());
 		bestehendeAnimal.setSize(animal.getSize());
 		
-		animalRepository.save(bestehendeAnimal);
-		
+		animalRepository.save(bestehendeAnimal);	
 	}
 	
 	//Animal löschen
 	public void deleteAnimal(long id) {
 		animalRepository.deleteById(id);
 	}
-
 	
 }

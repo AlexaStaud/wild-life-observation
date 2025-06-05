@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/animal")
 public class AnimalController {
 	
-	@Autowired
+	@Autowired //Einbinden von AnimalService
 	AnimalService animalService;
 	
 	
@@ -31,16 +31,19 @@ public class AnimalController {
 	public Animal getAnimal(@PathVariable("id") long id) {
 		return animalService.getAnimal(id);
 	}
+	
 	//Ein Animal hinzufügen
 	@PostMapping
 	public void addAnimal(@RequestBody Animal animal) {
 		animalService.addAnimal(animal);
 	}
+	
 	//Animal bearbeiten
 	@PutMapping("/{id}")
 	public void updateAnimal(@PathVariable("id") long id, @RequestBody Animal animal) {
 		animalService.updateAnimal(id, animal);
 	}
+	
 	//Animal löschen
 	@DeleteMapping("/{id}")
 	public void deleteAnimal(@PathVariable("id") long id) {

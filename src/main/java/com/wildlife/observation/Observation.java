@@ -21,16 +21,18 @@ public class Observation {
 	private String date;
 	
 	//Beziehungen
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne 
+	@JoinColumn //erzeugt Fremdschlüsselspalte 
 	private Animal animal;
 	
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne 
+	@JoinColumn //erzeugt Fremdschlüsselspalte 
 	private Location location;
 	
+	//Standart-Konstruktor
 	public Observation() {}
 	
+	//Konstruktor 
 	public Observation(Long id, String time, String date, Animal animal, Location location) {
 		this.id = id;
 		this.time = time;
@@ -39,7 +41,7 @@ public class Observation {
 		this.location = location;
 	}
 	
-	//Getter und Setter
+	//Getter und Setter automatisch erzeugt
 	public Animal getAnimal() {
 		return animal;
 	}
