@@ -94,7 +94,7 @@ function saveNewGenus() {
 		type: 'POST',
 		url: '/genus',
 		contentType: 'application/json',
-		data: JSON.stringify({ designation: name }),
+		data: JSON.stringify({ designation: name, latinDesignation: "Unbekannt" }),
 		success: function() {
 			alert("Neue Gattung gespeichert.");
 			$('#newGenusInput').hide();
@@ -110,7 +110,7 @@ function saveNewGenus() {
 
 // Dropdown Ort (Location) laden
 function loadLocationOptions() {
-	$.get('/location', function(data) {
+	$.get('/locations', function(data) {
 		const select = $('#locationSelect');
 		select.empty().append('<option value="">--Bitte auswählen--</option>');
 		data.forEach(function(l) {
@@ -127,7 +127,7 @@ function saveNewLocation() {
 
 	$.ajax({
 		type: 'POST',
-		url: '/location',
+		url: '/locations',
 		contentType: 'application/json',
 		data: JSON.stringify({ city: name }),
 		success: function() {
