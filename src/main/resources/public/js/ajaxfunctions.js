@@ -1,22 +1,29 @@
-//On Page load-registerlistenersandloadexistingvideosin datatable
 $(document).ready(function() {
+	// Tabelle laden
 	loadObservationTable();
-	//processtheform newVideo
+	
+	// Gattung und Ort laden
+		loadGenusOptions();
+		loadLocationOptions();
+	
+	// Formular abschicken
 	$("#observationForm").submit(function(event) {
 		postObservation(event);
 	});
 	
-	//Beobachtungen laden, wenn der Button geklickt wird
+	// Tabelle manuell laden wenn geklickt
 	$("#loadObservations").click(function() {
 		loadObservationTable();
 	});
 });
 
-
+// Beobachtungen speichern (linke Seite)
 //linke Seite Eingabemaske (Yaren)
 function postObservation(event) {
-	// get the form data
-	var formData = {
+	event.preventDefault(); // Standard-Submit verhindern
+
+
+	const formData = {
 		'time': $('input[name=time]').val(),
 		'date': $('input[name=date]').val(),
 		'gender': $('select[name=gender]').val(),
@@ -66,4 +73,81 @@ function loadObservationTable() {
 			{ "data": "time" }
 		]
 	});
+}// Dropdown Gattung (Genus) laden
+function loadGenusOptions() {
+	$.get('/genus', function(data) {
+		const select = $('#genusSelect');
+		select.empty().append('<option value="">--Bitte auswählen--</option>');
+		data.forEach(function(g) {
+			select.append('<option value="' + g.id + '">' + g.designation + '</option>');
+		});
+	});
+}
+
+
+// Neue Gattung speichern
+function saveNewGenus() {
+	const name = $('#newGenusName').val();
+	if (!name) return alert("Name der Gattung fehlt.");
+
+	$.ajax({
+		type: 'POST',
+		url: '/genus',
+		contentType: 'application/json',
+		data: JSON.stringify({ designation: name }),
+		success: function() {
+			alert("Neue Gattung gespeichert.");
+			$('#newGenusInput').hide();
+			$('#newGenusName').val('');
+			loadGenusOptions();
+		},
+		error: function() {
+			alert("Fehler beim Speichern der Gattung.");
+		}
+	});
+}
+
+
+// Dropdown Ort (Location) laden
+function loadLocationOptions() {
+	$.get('/location', function(data) {
+		const select = $('#locationSelect');
+		select.empty().append('<option value="">--Bitte auswählen--</option>');
+		data.forEach(function(l) {
+			select.append('<option value="' + l.id + '">' + l.city + '</option>');
+		});
+	});
+}
+
+
+// Neuer Ort speichern
+function saveNewLocation() {
+	const name = $('#newLocationName').val();
+	if (!name) return alert("Name des Ortes fehlt.");
+
+	$.ajax({
+		type: 'POST',
+		url: '/location',
+		contentType: 'application/json',
+		data: JSON.stringify({ city: name }),
+		success: function() {
+			alert("Neuer Ort gespeichert.");
+			$('#newLocationInput').hide();
+			$('#newLocationName').val('');
+			loadLocationOptions();
+		},
+		error: function() {
+			alert("Fehler beim Speichern des Ortes.");
+		}
+	});
+}
+
+
+// Toggle-Funktionen
+function toggleGenusInput() {
+	$('#newGenusInput').toggle();
+}
+
+function toggleLocationInput() {
+	$('#newLocationInput').toggle();
 }
