@@ -62,7 +62,7 @@ function loadObservationTable() {
 		},
 		"columns": [
 			{ "data": "id" },
-			{ "data": "animal.genus.designation" },  
+			{ "data": "genus" },  
 			{ "data": "location" },
 			{ "data": "animal.size" },
 			{ "data": "animal.weight" },
