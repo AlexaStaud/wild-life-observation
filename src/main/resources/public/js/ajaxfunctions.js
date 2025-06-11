@@ -97,13 +97,14 @@ function loadGenusOptions() {
 // Neue Gattung speichern
 function saveNewGenus() {
 	const name = $('#newGenusName').val();
+	const latinName = $('#newGenusLatinName').val();
 	if (!name) return alert("Name der Gattung fehlt.");
 
 	$.ajax({
 		type: 'POST',
 		url: '/genus',
 		contentType: 'application/json',
-		data: JSON.stringify({ designation: name, latinDesignation: "Unbekannt" }),
+		data: JSON.stringify({ designation: name, latinDesignation: latinName}),
 		success: function() {
 			alert("Neue Gattung gespeichert.");
 			$('#newGenusInput').hide();
@@ -132,13 +133,14 @@ function loadLocationOptions() {
 // Neuer Ort speichern
 function saveNewLocation() {
 	const name = $('#newLocationName').val();
+	const description = $('#newLocationDescription').val();
 	if (!name) return alert("Name des Ortes fehlt.");
 
 	$.ajax({
 		type: 'POST',
 		url: '/locations',
 		contentType: 'application/json',
-		data: JSON.stringify({ city: name }),
+		data: JSON.stringify({ city: name, description: description}),
 		success: function() {
 			alert("Neuer Ort gespeichert.");
 			$('#newLocationInput').hide();
@@ -155,8 +157,10 @@ function saveNewLocation() {
 // Toggle-Funktionen
 function toggleGenusInput() {
 	$('#newGenusInput').toggle();
+	$('#newGenusLatinInput').toggle();
 }
 
 function toggleLocationInput() {
 	$('#newLocationInput').toggle();
+	$('#newLocationDescriptionInput').toggle();
 }

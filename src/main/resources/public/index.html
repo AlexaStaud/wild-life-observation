@@ -21,10 +21,14 @@
                 <select name="genusId" id="genusSelect" required>
                     <option value="">--Bitte auswählen--</option>
                 </select>
+				
                 <button type="button" onclick="toggleGenusInput()">+ Neue Gattung anlegen</button>
                 <div id="newGenusInput" style="display: none; margin-top: 10px;">
                     <label>Neue Gattung (Name):</label>
                     <input type="text" id="newGenusName">
+					
+					<label>Lateinischer Name:</label>
+					<input type="text" id="newGenusLatinName">
                     <button type="button" onclick="saveNewGenus()">Speichern</button>
                 </div>
 
@@ -33,11 +37,15 @@
                 <select name="locationId" id="locationSelect" required>
                     <option value="">--Bitte auswählen--</option>
                 </select>
-                <button type="button" onclick="toggleLocationInput()">+ Neuer Ort</button>
+                
+				<button type="button" onclick="toggleLocationInput()">+ Neuer Ort</button>
                 <div id="newLocationInput" style="display: none;">
                     <label>Neuer Ort (Stadtname):</label>
                     <input type="text" id="newLocationName">
-                    <button type="button" onclick="saveNewLocation()">Speichern</button>
+                  
+					<label>Ortsbeschreibung:</label>
+					<input type="text" id="newLocationDescription">
+					<button type="button" onclick="saveNewLocation()">Speichern</button>
                 </div>
 
                 <!-- Beobachtungsdaten -->
