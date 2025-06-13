@@ -15,6 +15,60 @@ $(document).ready(function() {
 	$("#loadObservations").click(function() {
 		loadObservationTable();
 	});
+	
+	// Beobachtungen Bearbeiten
+	$("#editSelected").click(function() {
+		const selected = $(".rowCheckbox:checked");
+		if (selected.length !== 1) {
+			alert("Bitte genau eine Beobachtung auswählen.");
+			return;
+		}
+		
+		const id = selected.val();
+		
+		$.get("/observation/${id}", function (data) {
+			$("input[name=time]").val(data.time);
+			$("input[name=date]").val(data.date);
+			$("select[name=gender]").val(data.animal.gender);
+			$("input[name=weight]").val(data.animal.weight);
+			$("input[name=size]").val(data.animal.size);
+			$("input[name=age]").val(data.animal.age);
+			$("#genusSelect").val(data.animal.genusId);
+			$("#locationSelect").val(data.location.nr);
+			
+			$("#observationForm").data("edit-id", id); //für PUT
+		});	
+	});
+	
+	// Beobachtungen löschen
+	$("#deleteSelected").click(function() {
+		const selectedIds = $(".rowCheckbox:checked").map(function () {
+			return $(this).val();
+		}).get();
+		
+		if (selectedIds.length === 0) {
+			alert("Bitte mindestens eine Beobachtung auswählen.");
+			return;
+		}
+		
+		if (!confirm("${selectedIds.length} Beobachtung wirklich löschen?")) return;
+	
+		selectedIds.forEach(id => {
+			$.ajax({
+				url: "/observation/${id}",
+				type: "DELETE",
+				success: loadObservationTable
+			});
+		});
+	});
+	
+	$(document).on("click", "#selectAll", function () {
+		$(".rowCheckbox").prop("checked", this.checked).trigger("change");
+	});	
+	
+	$(document).on("change", "#.rowCheckbox", function () {
+			$(this).closest("tr").toggleClass("selected-row", this.checked);
+		});	
 });
 
 // Beobachtungen speichern und absenden (linke Seite)
@@ -39,15 +93,19 @@ function postObservation(event) {
 			'lNr': $('#locationSelect').val()
 		}
 	};
-	// processtheform
+	
+	const id = $("observationForm").data("edit-id");
+	const method = id ? "PUT" : "POST";
+	const url = id ? "/observation/${id}" : "/observation";
 	
 	
 	$.ajax({
-		type: 'POST', 
+		type: method, 
 		contentType: 'application/json',
-		url: '/observation', // urlwherewewanttoPOST
+		url: url,
 		data: JSON.stringify(formData), // datawewanttoPOST
 		success: function(data, textStatus, jQxhr) {
+			$("#observationForm").removeData("edit-id");
 			loadObservationTable();
 		},
 		error: function(jqXhr, textStatus, errorThrown) {
@@ -62,7 +120,7 @@ function postObservation(event) {
 //rechte Seite Beobachtungstabelle (Danny)
 
 //ACHTUNG: Änderung Alexa 
-function loadObservationTable() {
+function loadObservationTable() {	
 	var table = $('#observationTable').DataTable({
 		destroy: true,
 		scrollX: true,
@@ -71,6 +129,11 @@ function loadObservationTable() {
 			"dataSrc": ""// Causeofflat JsonObjects
 		},
 		"columns": [
+			{
+				"data": null,
+				"defaultContent": '<input type="checkbox" class="rowCheckbox" />',
+				"orderable": false
+			},
 			{ "data": "id" },
 			{ "data": "animal.genus.designation" },  
 			{ "data": "location.city" },
@@ -82,7 +145,9 @@ function loadObservationTable() {
 			{ "data": "time" }
 		]
 	});
-}// Dropdown Gattung (Genus) laden
+}
+
+// Dropdown Gattung (Genus) laden
 function loadGenusOptions() {
 	$.get('/genus', function(data) {
 		const select = $('#genusSelect');

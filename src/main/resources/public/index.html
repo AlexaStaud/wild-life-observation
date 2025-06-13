@@ -80,12 +80,15 @@
 			<h1>Beobachtungen</h1>
 			<p>
 			<button id="loadObservations">Laden</button>
+			<button id="editSelected">Bearbeiten</button>
+			<button id="deleteSelected">Löschen</button>
 			</p>
 			
 			<div class="table_wrapper">
 				<table id="observationTable" class="display" cellspacing="0" width="100%">
 					<thead>
 						<tr>
+							<th><input type="checkbox" id="selectAll"> <span style="font-weight: normal;">Alles auswählen</span></th>
 							<th>ID</th>
 							<th>Genus</th>
 							<th>Ort</th>
