@@ -26,15 +26,15 @@ $(document).ready(function() {
 		
 		const id = selected.val();
 		
-		$.get("/observation/${id}", function (data) {
+		$.get(`/observation/${id}`, function (data) {
 			$("input[name=time]").val(data.time);
 			$("input[name=date]").val(data.date);
 			$("select[name=gender]").val(data.animal.gender);
 			$("input[name=weight]").val(data.animal.weight);
 			$("input[name=size]").val(data.animal.size);
 			$("input[name=age]").val(data.animal.age);
-			$("#genusSelect").val(data.animal.genusId);
-			$("#locationSelect").val(data.location.nr);
+			$("#genusSelect").val(data.animal.genus.id);
+			$("#locationSelect").val(data.location.lNr);
 			
 			$("#observationForm").data("edit-id", id); //für PUT
 		});	
@@ -55,7 +55,7 @@ $(document).ready(function() {
 	
 		selectedIds.forEach(id => {
 			$.ajax({
-				url: "/observation/${id}",
+				url: `/observation/${id}`,
 				type: "DELETE",
 				success: loadObservationTable
 			});
@@ -94,9 +94,9 @@ function postObservation(event) {
 		}
 	};
 	
-	const id = $("observationForm").data("edit-id");
+	const id = $("#observationForm").data("edit-id");
 	const method = id ? "PUT" : "POST";
-	const url = id ? "/observation/${id}" : "/observation";
+	const url = id ? `/observation/${id}` : "/observation";
 	
 	
 	$.ajax({
@@ -131,7 +131,9 @@ function loadObservationTable() {
 		"columns": [
 			{
 				"data": null,
-				"defaultContent": '<input type="checkbox" class="rowCheckbox" />',
+				"render": function (data, type ,row) {
+					return '<input type="checkbox" class="rowCheckbox" value="' + row.id + '">'
+				},
 				"orderable": false
 			},
 			{ "data": "id" },

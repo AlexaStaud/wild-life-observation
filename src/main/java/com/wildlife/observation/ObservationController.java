@@ -31,7 +31,7 @@ public class ObservationController {
 	
 	//GET um Beobachtung mit ID abzurufen
 	@GetMapping("/{id}") 
-	public Observation getObservationById(@PathVariable Long id) {
+	public Observation getObservationById(@PathVariable("id") Long id) {
 		return observationService.getObservation(id);
 	}
 	//Post um neue Beobachtung anzulegen
@@ -41,12 +41,12 @@ public class ObservationController {
 	}
 	//PUT /observation/{id} um Beobachtung zu bearbeiten/aktualisieren
 	@PutMapping("/{id}")
-	public void updateObservation(@PathVariable Long id, @RequestBody Observation observation) {
+	public void updateObservation(@PathVariable("id") Long id, @RequestBody Observation observation) {
 		observationService.updateObservation(id, observation);
 	}
 	//DELETE /observation({id} um Beobachtung zu löschen
 	@DeleteMapping("/{id}")
-	public void deleteObservation(@PathVariable Long id) {
+	public void deleteObservation(@PathVariable("id") Long id) {
 		observationService.deleteObservation(id);
 	}
 	
