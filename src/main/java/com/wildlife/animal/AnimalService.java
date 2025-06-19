@@ -23,7 +23,7 @@ public class AnimalService {
 		}
 		return animalList;
 	}
-	//Animal zurückgeben
+	//Animal zurückgeben anahand id
 	public Animal getAnimal(long id) {
 		return animalRepository.findById(id).orElse(null);
 	}
@@ -33,16 +33,17 @@ public class AnimalService {
 	}
 	//Animal bearbeiten
 	public void updateAnimal(long id, Animal animal) {
-		Animal bestehendeAnimal = animalRepository.findById(id).orElse(null);
+		Animal bestehendeAnimal = animalRepository.findById(id).orElse(null); //holt das bestehende Tier aus der Datenbank
 		
+		//Überschreibt - wenn vorhanden - die Werte mit den neuen Daten 
 		bestehendeAnimal.setAge(animal.getAge());
 		bestehendeAnimal.setWeight(animal.getWeight());
 		bestehendeAnimal.setSize(animal.getSize());
 		bestehendeAnimal.setGender(animal.getGender());
-		animalRepository.save(bestehendeAnimal);	
+		animalRepository.save(bestehendeAnimal);	//sichert das aktualisierte Tier wieder in der Datenbank
 	}
 	
-	//Animal löschen
+	//Animal löschen anhand id
 	public void deleteAnimal(long id) {
 		animalRepository.deleteById(id);
 	}
