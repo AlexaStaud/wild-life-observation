@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="js/ajaxfunctions.js"></script>
+	<script src="js/ajaxfunctions.js"></script>
 </head>
 <body>
     <div class="centerdiv">
@@ -84,25 +84,65 @@
 			<button id="deleteSelected">Löschen</button>
 			</p>
 			
-			<div class="table_wrapper">
-				<table id="observationTable" class="display" cellspacing="0" width="100%">
-					<thead>
-						<tr>
-							<th><input type="checkbox" id="selectAll"> <span style="font-weight: normal;">Alles auswählen</span></th>
-							<th>ID</th>
-							<th>Genus</th>
-							<th>Ort</th>
-							<th>Größe</th>
-							<th>Gewicht</th>
-							<th>Alter</th>
-							<th>Geschlecht</th>
-							<th>Datum</th>
-							<th>Uhrzeit</th>
-						</tr>
-					</thead>
-				</table>		
+			<div class="tab-buttons">
+			    <button class="tab-button active" data-tab="observations">Beobachtungen</button>
+			    <button class="tab-button" data-tab="locations">Orte</button>
+			    <button class="tab-button" data-tab="genus">Gattungen</button>
+			</div>
+			
+			<div id="observations" class="tab-content active">
+				<div class="table_wrapper">
+					<table id="observationTable" class="display" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="selectAllObservations"> <span style="font-weight: normal;">Alles auswählen</span></th>
+								<th>ID</th>
+								<th>Genus</th>
+								<th>Ort</th>
+								<th>Größe</th>
+								<th>Gewicht</th>
+								<th>Alter</th>
+								<th>Geschlecht</th>
+								<th>Datum</th>
+								<th>Uhrzeit</th>
+							</tr>
+						</thead>
+					</table>		
+				</div>
+			</div>
+			
+			<div id="locations" class="tab-content">
+				<div class="table_wrapper">
+					<table id="locationTable" class="display" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="selectAllLocations"> <span style="font-weight: normal;">Alles auswählen</span></th>
+								<th>lNr</th>
+								<th>Stadt</th>
+								<th>Beschreibung</th>
+							</tr>
+						</thead>
+					</table>		
+				</div>
+			</div>
+			
+			<div id="genus" class="tab-content">
+				<div class="table_wrapper">
+					<table id="genusTable" class="display" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="selectAllGenus"> <span style="font-weight: normal;">Alles auswählen</span></th>
+								<th>ID</th>
+								<th>Bezeichnung</th>
+								<th>lat. Bezeichnung</th>
+							</tr>
+						</thead>
+					</table>		
+				</div>
 			</div>
 			
 		</section>
-</body>
+
+	</body>
+	
 </html>

@@ -26,7 +26,7 @@ font-size: 14px;
 }
 
 button {
-background-color: #e6f0fa; /* leicht hellblau */
+background-color: #e6f0fa; 
 color: #333;
 padding: 6px 12px;
 border: 1px solid #aacbe8;
@@ -77,4 +77,30 @@ margin: 12px;
 padding-top: 12px;
 color: white;
 clear: left;
+}
+
+
+/Tabs/
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.tab-buttons a {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #e6f0fa;
+  border: 1px solid #aacbe8;
+  border-radius: 4px;
+  margin-right: 6px;
+  text-decoration: none;
+  color: #333;
+}
+
+.tab-buttons a:hover {
+  background-color: #d6e9f9;
 }
