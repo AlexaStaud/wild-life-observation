@@ -70,21 +70,28 @@ public class ObservationService {
 	
 	//Beobachtung aktualisieren
 	public void updateObservation(Long id, Observation updateObservation) {
-		updateObservation.setId(id); //setzt id, damit es als Änderung und nicht als neue Beobachtung behandelt wird
 		
-		Long genusId = updateObservation.getAnimal().getGenus().getId();
+		Observation existingObservation = observationRepository.findById(id).orElse(updateObservation);
+		
+		Animal existingAnimal = existingObservation.getAnimal();
+		Animal updateAnimal = updateObservation.getAnimal();
+		
+		existingAnimal.setAge(updateAnimal.getAge());
+		existingAnimal.setGender(updateAnimal.getGender());
+		existingAnimal.setSize(updateAnimal.getSize());
+		existingAnimal.setWeight(updateAnimal.getWeight());
+		
+				
+		Long genusId = updateAnimal.getGenus().getId();
 		Genus genus = genusRepository.findById(genusId).orElse(null);
 		
-		updateObservation.getAnimal().setGenus(genus);
-		
-		Animal animal = animalRepository.save(updateObservation.getAnimal());
-		updateObservation.setAnimal(animal);
+		existingAnimal.setGenus(genus);
 		
 		Long lNr = updateObservation.getLocation().getlNr();
 		Location location = locationRepository.findById(lNr).orElse(null);
-		updateObservation.setLocation(location);
+		existingObservation.setLocation(location);
 		
-		observationRepository.save(updateObservation);
+		observationRepository.save(existingObservation);
 	}
 	
 	

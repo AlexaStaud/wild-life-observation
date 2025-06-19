@@ -31,7 +31,7 @@ public class GenusController {
 	
 	//GET um Gattung mit bestimmter ID abzurufen
 	@GetMapping("/{id}")
-	public Genus getGenusById(@PathVariable Long id) {
+	public Genus getGenusById(@PathVariable("id") Long id) {
 		return genusService.getGenus(id);
 		
 	}
@@ -44,13 +44,13 @@ public class GenusController {
 	
 	//PUT /genus/{id} um Gattung aktualisieren
 	@PutMapping("/{id}")
-	public void updateGenus(@PathVariable Long id, @RequestBody Genus genus) {
+	public void updateGenus(@PathVariable("id") Long id, @RequestBody Genus genus) {
 		genusService.updateGenus(id, genus);
 	}
 	
 	//DELETE /genus/{id} um Gattung zu löschen
 	@DeleteMapping("/{id}")
-	public void deleteGenus(@PathVariable Long id) {
+	public void deleteGenus(@PathVariable("id") Long id) {
 		genusService.deleteGenus(id);
 	}
 
