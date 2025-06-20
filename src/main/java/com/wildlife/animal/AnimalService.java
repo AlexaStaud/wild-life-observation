@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnimalService {
 
-	@Autowired //Einbinden von AnimalRepository
+	@Autowired //Einbinden/Verknüpfen von AnimalRepository
 	AnimalRepository animalRepository;
 	
 	//Liste aller Animals ausgeben

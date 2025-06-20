@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController //Aufrufen Methoden
 @RequestMapping("/animal")
 public class AnimalController {
 	
-	@Autowired //Einbinden von AnimalService
+	@Autowired //Einbinden/Verknüpfen von AnimalService
 	AnimalService animalService;
 	
 	
 	//Liste aller Animals
 	@GetMapping
-	public List<Animal> alleAnimals() {
+	public List<Animal> alleAnimals() { //ruft Service auf, um alle Tiere zu laden
 		return animalService.getAnimalList();
 	}
 	
