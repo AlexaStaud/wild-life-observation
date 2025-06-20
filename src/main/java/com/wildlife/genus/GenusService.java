@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 public class GenusService {
 	
 	
-	//Eingliedern von GenusRepository
-	@Autowired
+	@Autowired //Einbinden/Verknüpfen von GenusRepository
 	GenusRepository genusRepository;
 
 	//Alle Gattungen abrufen
