@@ -97,6 +97,10 @@ public class ObservationService {
 		Location location = locationRepository.findById(lNr).orElse(null);
 		existingObservation.setLocation(location);
 		
+		//Observation-Attribute kopieren
+		existingObservation.setDate(updateObservation.getDate());
+		existingObservation.setTime(updateObservation.getTime());
+		
 		//existierende, aktualisierte Observation speichern
 		observationRepository.save(existingObservation);
 	}
