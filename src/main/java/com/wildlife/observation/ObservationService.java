@@ -53,44 +53,51 @@ public class ObservationService {
 	//Neue Beobachtung speichern
 	public void addObservation(Observation observation) {
 		
-		Long genusId = observation.getAnimal().getGenus().getId();
+		//Genus finden und an Animal "anhängen"
+		Long genusId = observation.getAnimal().getGenus().getId(); 
 		Genus genus = genusRepository.findById(genusId).orElse(null);
-		
 		observation.getAnimal().setGenus(genus);
 		
+		//Animal speichern (jetzt vollständig, weil verknüpft mit Genus) und an Observation "anhängen"
 		Animal savedAnimal = animalRepository.save(observation.getAnimal());
 		observation.setAnimal(savedAnimal);
 		
+		//Location finden und an Observation "anhängen"
 		Long lNr = observation.getLocation().getlNr();
 		Location location = locationRepository.findById(lNr).orElse(null);
 		observation.setLocation(location);
 		
-		observationRepository.save(observation); //speichert Beobachtung
+		//Observation speichern
+		observationRepository.save(observation);
 	}
 	
 	//Beobachtung aktualisieren
 	public void updateObservation(Long id, Observation updateObservation) {
 		
-		Observation existingObservation = observationRepository.findById(id).orElse(updateObservation);
+		//Die existierende Observation in Variable speichern
+		Observation existingObservation = observationRepository.findById(id).orElse(null);
 		
-		Animal existingAnimal = existingObservation.getAnimal();
-		Animal updateAnimal = updateObservation.getAnimal();
+		//existierendes Animal und neue Angaben werden in zwei Variablen abgespeichert
+		Animal existingAnimal = existingObservation.getAnimal(); 
+		Animal updateAnimal = updateObservation.getAnimal(); 
 		
+		//existingAnimal übernimmt alle neuen Angaben
 		existingAnimal.setAge(updateAnimal.getAge());
 		existingAnimal.setGender(updateAnimal.getGender());
 		existingAnimal.setSize(updateAnimal.getSize());
 		existingAnimal.setWeight(updateAnimal.getWeight());
 		
-				
+		//existingAnimal verknüpft sich mit Genus aus den neuen Angaben		
 		Long genusId = updateAnimal.getGenus().getId();
 		Genus genus = genusRepository.findById(genusId).orElse(null);
-		
 		existingAnimal.setGenus(genus);
 		
+		//Location finden und an existingObservation "anhängen"
 		Long lNr = updateObservation.getLocation().getlNr();
 		Location location = locationRepository.findById(lNr).orElse(null);
 		existingObservation.setLocation(location);
 		
+		//existierende, aktualisierte Observation speichern
 		observationRepository.save(existingObservation);
 	}
 	
@@ -98,10 +105,13 @@ public class ObservationService {
 	//Beobachtung löschen
 	public void deleteObservation(Long id) {
 		
+		//Observation finden
 		Observation observation = observationRepository.findById(id).orElse(null);
 		
+		//zugehöriges Animal finden
 		Animal animal = observation.getAnimal();
 		
+		//Observation und Animal löschen
 		observationRepository.deleteById(id);
 		animalRepository.delete(animal);
 	}
