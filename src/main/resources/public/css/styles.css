@@ -4,11 +4,6 @@ padding-top: 48px;
 font-family: Arial, sans-serif;
 }
 
-.table_wrapper {
-overflow-x: auto;
-width: 100%;
-}
-
 label {
 display: block;
 margin-top: 8px;

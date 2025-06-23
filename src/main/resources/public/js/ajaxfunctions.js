@@ -21,54 +21,48 @@ $(document).ready(function() {
 	    }
 	  });
 	
-	//Tabelle mit Beobachtungen laden
 	loadObservationTable();
-	
-	//Gattung und Ort für Dropdown laden
 	loadGenusOptions();
 	loadLocationOptions();
 	
-	//Beobachtung speichern-Button
+	//Absenden (Neu anlegen oder bearbeiten)
 	$("#observationForm").submit(function(event) {
 		postObservation(event);
 	});
 	
-	//Laden-Button
+	//Beobachtungen durch Button neu laden
 	$("#loadObservations").click(function() {
 		loadObservationTable();
 	});
 	
-	//Bearbeiten
+	//Beobachtung bearbeiten
 	$("#editSelected").click(function () {
 		updateSelected();
 	});
 	
-	//Löschen
+	//Beobachtung öschen
 	$("#deleteSelected").click(function () {
 		deleteSelected();
 	});
 	
-	//Alles auswählen je nach aktiver Tabelle
-	$(document).on("click", "#selectAll", function () {
-		$(".rowCheckbox").prop("checked", this.checked).trigger("change");
+	//Alle Felder auswählen, je nach aktiver Tabelle
+	$(document).on("click", "#selectAllObservations", function () {
+		$(".rowCheckbox").prop("checked", this.checked);
 	});
 	$(document).on("click", "#selectAllLocations", function () {
-		$(".locationCheckbox").prop("checked", this.checked).trigger("change");
+		$(".locationCheckbox").prop("checked", this.checked);
 	});
 	$(document).on("click", "#selectAllGenus", function () {
-		$(".genusCheckbox").prop("checked", this.checked).trigger("change");
+		$(".genusCheckbox").prop("checked", this.checked);
 	});
 
-	//Zeilen markieren
-	$(document).on("change", ".rowCheckbox, .locationCheckbox, .genusCheckbox", function () {
-		$(this).closest("tr").toggleClass("selected-row", this.checked);
-	});
 });
 
 //Beobachtungen speichern
 function postObservation(event) {
 	event.preventDefault();
 
+	//Daten für die Beobachtung
 	const formData = {
 		'time': $('input[name=time]').val(),
 		'date': $('input[name=date]').val(),
@@ -86,6 +80,7 @@ function postObservation(event) {
 		}
 	};
 	
+	//Zwischen neu anlegen und Bearbeiten wählen
 	const id = $("#observationForm").data("edit-id");
 	const method = id ? "PUT" : "POST";
 	const url = id ? `/observation/${id}` : "/observation";
@@ -96,7 +91,7 @@ function postObservation(event) {
 		contentType: 'application/json',
 		url: url,
 		data: JSON.stringify(formData), 
-		success: function(data, textStatus, jQxhr) {
+		success: function(data, textStatus, jQxhr) {	//Nach Erfolg Bearbeitungsmodus verlassen
 			$("#observationForm").removeData("edit-id");
 			$("#observationForm")[0].reset(); 
 			loadObservationTable();
@@ -114,11 +109,12 @@ function updateSelected() {
 
 	let selectedClass, getUrl, openEditUI, fillFormFields, storeEditId;
 
+	//Abfrage welche Tabelle gerade offen ist
 	if (activeTab === "observations") {
 		selectedClass = ".rowCheckbox:checked";
 		getUrl = id => `/observation/${id}`;
 		openEditUI = () => {}; // nichts zu öffnen
-		fillFormFields = data => {
+		fillFormFields = data => { //Daten abrufen und links ins Formular eintragen 
 			$("input[name=time]").val(data.time);
 			$("input[name=date]").val(data.date);
 			$("select[name=gender]").val(data.animal.gender);
@@ -128,7 +124,7 @@ function updateSelected() {
 			$("#genusSelect").val(data.animal.genus.id);
 			$("#locationSelect").val(data.location.lNr);
 		};
-		storeEditId = id => $("#observationForm").data("edit-id", id);
+		storeEditId = id => $("#observationForm").data("edit-id", id);	//damit PUT und nicht POST beim speichern
 
 	} else if (activeTab === "locations") {
 		selectedClass = ".locationCheckbox:checked";
@@ -155,8 +151,9 @@ function updateSelected() {
 		return;
 	}
 
+	//Abfrage damit nur eine Beobachtung/Gattung/Ort gleichzeitg bearbeitet werden kann
 	const selected = $(selectedClass);
-	if (selected.length !== 1) {
+	if (selected.length !== 1) {	
 		alert("Bitte genau einen Eintrag auswählen.");
 		return;
 	}
@@ -199,16 +196,16 @@ function deleteSelected() {
 		return;
 	}
 
-	const selectedIds = $(selectedClass).map(function () {
+	const selectedIds = $(selectedClass).map(function () {	//Alle IDs der angeklickten Felder abrufen
 		return $(this).val();
 	}).get();
 
-	if (selectedIds.length === 0) {
+	if (selectedIds.length === 0) {	//Abfrage, damti mindestens eine Beobachtung/Gattung/Ort gelöscht wird
 		alert("Bitte mindestens ein Element auswählen.");
 		return;
 	}
 
-	if (!confirm(`${selectedIds.length} ${itemName} wirklich löschen?`)) return;
+	if (!confirm(`${selectedIds.length} ${itemName} wirklich löschen?`)) return; //Kontrollabfrage
 
 	selectedIds.forEach(id => {
 		$.ajax({
@@ -236,7 +233,7 @@ function loadObservationTable() {
 			"dataSrc": ""
 		},
 		"columns": [
-			{
+			{	//Checkboxen in jede Zeile einfügen
 				"data": null,
 				"render": function (data, type ,row) {
 					return '<input type="checkbox" class="rowCheckbox" value="' + row.id + '">'
@@ -304,7 +301,7 @@ function loadGenusTable() {
 	});
 }
 
-//Dropdown Genus laden
+//Gattung ins Dropdown einfügen
 function loadGenusOptions() {
 	$.get('/genus', function(data) {
 		const select = $('#genusSelect');
@@ -316,7 +313,7 @@ function loadGenusOptions() {
 }
 
 
-//Neuen Genus speichern
+//Neue Gattung speichern
 function saveNewGenus() {
 	const id = $("#newGenusInput").data("edit-id");
 	const name = $('#newGenusName').val();
@@ -347,7 +344,7 @@ function saveNewGenus() {
 }
 
 
-//Dropdown Location laden
+//Ort ins Dropdown einfügen
 function loadLocationOptions() {
 	$.get('/locations', function(data) {
 		const select = $('#locationSelect');
@@ -359,7 +356,7 @@ function loadLocationOptions() {
 }
 
 
-//Neue Location speichern
+//Neuen Ort speichern
 function saveNewLocation() {
 	const id = $("#newLocationInput").data("edit-id");
 	const name = $('#newLocationName').val();
@@ -390,12 +387,13 @@ function saveNewLocation() {
 }
 
 
-//Toggle-Funktionen
+//Eingabemaske für neue Gattung anzeigen/verstecken
 function toggleGenusInput() {
 	$('#newGenusInput').toggle();
 	$('#newGenusLatinInput').toggle();
 }
 
+//Eingabemaske für neuen Ort anzeigen/verstecken
 function toggleLocationInput() {
 	$('#newLocationInput').toggle();
 	$('#newLocationDescriptionInput').toggle();
