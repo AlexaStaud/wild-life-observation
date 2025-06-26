@@ -21,11 +21,12 @@ $(document).ready(function() {
 	    }
 	  });
 	
-	loadObservationTable();
+	loadObservationTable(); 
 	loadGenusOptions();
 	loadLocationOptions();
+	//lädt beim Start Beobachtungstabelle und Dropdowns für Gattungen und Orte
 	
-	//Absenden (Neu anlegen oder bearbeiten)
+	//Beobachtung wird gespeichert und Formular abgesendet (ohne zuerst Seite neu laden)
 	$("#observationForm").submit(function(event) {
 		postObservation(event);
 	});
@@ -40,7 +41,7 @@ $(document).ready(function() {
 		updateSelected();
 	});
 	
-	//Beobachtung öschen
+	//Beobachtung löschen
 	$("#deleteSelected").click(function () {
 		deleteSelected();
 	});
@@ -63,7 +64,7 @@ function postObservation(event) {
 	event.preventDefault();
 
 	//Daten für die Beobachtung
-	const formData = {
+	const formData = { //JSON-Objekt wird erstellt und an Backend gesendet
 		'time': $('input[name=time]').val(),
 		'date': $('input[name=date]').val(),
 		'animal':{
@@ -86,12 +87,12 @@ function postObservation(event) {
 	const url = id ? `/observation/${id}` : "/observation";
 	
 	
-	$.ajax({
+	$.ajax({ //JSON Daten an Backend geschickt -> wenn erfolgreich: Formular zurücksetzen und Tabelle neu laden
 		type: method, 
 		contentType: 'application/json',
 		url: url,
 		data: JSON.stringify(formData), 
-		success: function(data, textStatus, jQxhr) {	//Nach Erfolg Bearbeitungsmodus verlassen
+		success: function(data, textStatus, jQxhr) {	
 			$("#observationForm").removeData("edit-id");
 			$("#observationForm")[0].reset(); 
 			loadObservationTable();
@@ -124,9 +125,9 @@ function updateSelected() {
 			$("#genusSelect").val(data.animal.genus.id);
 			$("#locationSelect").val(data.location.lNr);
 		};
-		storeEditId = id => $("#observationForm").data("edit-id", id);	//damit PUT und nicht POST beim speichern
+		storeEditId = id => $("#observationForm").data("edit-id", id);	//damit PUT und nicht POST beim speichern, also überschreiben der Daten
 
-	} else if (activeTab === "locations") {
+	} else if (activeTab === "locations") { //Tabelle Locoations
 		selectedClass = ".locationCheckbox:checked";
 		getUrl = id => `/locations/${id}`;
 		openEditUI = () => $("#newLocationInput").show();
@@ -136,7 +137,7 @@ function updateSelected() {
 		};
 		storeEditId = id => $("#newLocationInput").data("edit-id", id);
 
-	} else if (activeTab === "genus") {
+	} else if (activeTab === "genus") { //Tabelle Genus
 		selectedClass = ".genusCheckbox:checked";
 		getUrl = id => `/genus/${id}`;
 		openEditUI = () => $("#newGenusInput").show();
@@ -173,9 +174,9 @@ function deleteSelected() {
 
 	let selectedClass, deleteUrl, reloadFunction, itemName;
 
-	if (activeTab === "observations") {
-		selectedClass = ".rowCheckbox:checked";
-		deleteUrl = "/observation/";
+	if (activeTab === "observations") { //jeweilige Tabelle
+		selectedClass = ".rowCheckbox:checked"; //alle Checkboxen mit .checked holen
+		deleteUrl = "/observation/"; 
 		reloadFunction = loadObservationTable;
 		reloadOptions = [loadLocationOptions, loadGenusOptions]; 
 		itemName = "Beobachtung(en)";
@@ -229,7 +230,7 @@ function loadObservationTable() {
 		destroy: true,
 		scrollX: true,
 		"ajax": {
-			"url": "/observation", 
+			"url": "/observation", //holt Daten von /observation
 			"dataSrc": ""
 		},
 		"columns": [
@@ -304,9 +305,9 @@ function loadGenusTable() {
 //Gattung ins Dropdown einfügen
 function loadGenusOptions() {
 	$.get('/genus', function(data) {
-		const select = $('#genusSelect');
+		const select = $('#genusSelect'); //greift auf Dropdown Gattung auswählen
 		select.empty().append('<option value="">--Bitte auswählen--</option>');
-		data.forEach(function(g) {
+		data.forEach(function(g) { //für jede Gattung g ein Eintrag 
 			select.append('<option value="' + g.id + '">' + g.designation + '</option>');
 		});
 	});
